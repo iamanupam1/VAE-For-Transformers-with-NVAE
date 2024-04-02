@@ -19,13 +19,43 @@ The architecture comprises of mainly these sections:
 
 ## Mathematical Explanation
 The mathematical interpretation of the the proposed algorithm can be illustrated as below:
-- Denoising Attention: The attention function mainly provides a vector mapping a query vector to the  resulting attention vector.
-Attention(u′,Z; WQ,WK,WV) = Attn(u′WQ(WK)T, Z) WV = Attn(uZ)WV
+- Denoising Attention: The attention function mainly provides a vector mapping a query vector to the  resulting attention vector. The attention vector provides the essential information of the 
 
 ## Evaluation Explanation
-This section explains the evaluation metrics and methodologies used to assess the algorithm's performance.
+In order to support the theoritical baseline of this paper, experiments have been performed. 
+- **Reconstruction Verses Generation**: VAE is the competetive in both reconstructing the input sentences and genrating new samples as the input sample.All the models involved in the experiment goes through the hyperparameter tuning
+on the validation set across seeds inorder the find the best model that is capable of performing well in the given dataset.
+- **Regularisation**: The NVIB layer is able to regularise the number of vectors in the latent representation of a NVAE. The NVAE models can automatically adjust the number of vectors by analyzing the text content, eliminating the need for manually programmed length functions like those used in VTS.
 
-## Code Example
-```python
+## Project Installation Guideline
+1. Clone the repository from the github
+```console 
+git clone https://github.com/iamanupam1/VAE-For-Transformers-with-NVAE.git
+```
+2. Install conda and then mamba on your system using the bash script
+```console
+# Downloading the Miniconda from the Ananconda Repo and installing it
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh -b -p /usr/local -f
+
+# Installing Mamba using the Conda Environment
+conda install -y mamba -c conda-forge
+```
+3. Change the directory and create a mamba environment
+```console 
+# Changing the Directory
+cd nvib_transformers/
+# Creating a Mamba Environment based on the environment.yml file in nvib_transformers
+mamba env create -f environment.yml
+```
+4. Activating the Mamba Environment and listing the installed packges
+```console
+# Activating the Mamba Environment
+mamba activate nvib
+mamba list
+
+```
+
 # Your code implementation here
 canvas = "Implementation"
