@@ -17,10 +17,6 @@ The architecture comprises of mainly these sections:
     - Sample from the prior conditioned on the chosen sentence length.
     - Use the trained Transformer decoder to generate a sentence based on the sampled prior.
 
-## Mathematical Explanation
-The mathematical interpretation of the the proposed algorithm can be illustrated as below:
-- Denoising Attention: The attention function mainly provides a vector mapping a query vector to the  resulting attention vector. The attention vector provides the essential information of the 
-
 ## Evaluation Explanation
 In order to support the theoritical baseline of this paper, experiments have been performed. 
 - **Reconstruction Verses Generation**: VAE is the competetive in both reconstructing the input sentences and genrating new samples as the input sample.All the models involved in the experiment goes through the hyperparameter tuning
@@ -49,13 +45,32 @@ cd nvib_transformers/
 # Creating a Mamba Environment based on the environment.yml file in nvib_transformers
 mamba env create -f environment.yml
 ```
-4. Activating the Mamba Environment and listing the installed packges
+4. Activating the Mamba Environment and list/validate the installed packages
 ```console
 # Activating the Mamba Environment
 mamba activate nvib
 mamba list
-
 ```
-
-# Your code implementation here
-canvas = "Implementation"
+5. Preparing the dataset based on the dataset provided -> currently using the dataset from Hugging Face
+```python
+# Activating the Mamba Environment
+python prepareDatasets.py --DATA wikitext2 --LOCAL_PATH None
+```
+6. Training the dataset first in the vanilla transformer and then in the NVIB model
+```python
+python train.py --EXPERIMENT_NAME vanillaTransformer --WANDB_ENTITY [WANDB_ENTITY]
+python train.py --EXPERIMENT_NAME nvib --MODEL NVIB --WANDB_ENTITY [WANDB_ENTITY]
+```
+7. Draw the samples **(Synthetic Data)** from the prior data
+```python
+# Generating the sample data from the model
+python sample.py --EXPERIMENT_NAME nvib --WANDB_ENTITY [WANDB_ENTITY]
+```
+8. Evaluating the Reconstruction
+```python
+python reconstruction.py --EXPERIMENT_NAME nvib --WANDB_ENTITY [WANDB_ENTITY]
+```
+9. Evaluating the Interpolation
+```python
+python interpolation_evaluation.py --RUN_INTERPOLATIONS True --EXPERIMENT_NAME nvib --WANDB_ENTITY [WANDB_ENTITY]
+```
